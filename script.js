@@ -63,18 +63,22 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// Initialize EmailJS
+(function() {
+    emailjs.init("xwy_WeyaGluzCgo4v");
+})();
+
 // Contact form handling
-const contactForm = document.querySelector('.contact-form');
+const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         // Get form data
-        const formData = new FormData(contactForm);
-        const name = contactForm.querySelector('input[type="text"]').value;
-        const email = contactForm.querySelector('input[type="email"]').value;
-        const subject = contactForm.querySelectorAll('input[type="text"]')[1].value;
-        const message = contactForm.querySelector('textarea').value;
+        const name = contactForm.querySelector('input[name="user_name"]').value;
+        const email = contactForm.querySelector('input[name="user_email"]').value;
+        const subject = contactForm.querySelector('input[name="subject"]').value;
+        const message = contactForm.querySelector('textarea[name="message"]').value;
         
         // Simple validation
         if (!name || !email || !subject || !message) {
@@ -89,18 +93,44 @@ if (contactForm) {
             return;
         }
         
-        // Simulate form submission
+        // Update button state
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         
-        setTimeout(() => {
+        try {
+            // Format the message with all form data
+            const formattedMessage = `From: ${email}\nName: ${name}\nSubject: ${subject}\nEmail:\n${message}`;
+            
+            // Send email using EmailJS
+            await emailjs.send(
+                'service_972ozdr',
+                'template_bl3p14s',
+                {
+                    from_name: name,
+                    from_email: email,
+                    reply_to: email,
+                    subject: subject,
+                    message: formattedMessage,
+                    user_name: name,
+                    user_email: email
+                },
+                'xwy_WeyaGluzCgo4v'
+            );
+            
+            // Success message
             alert('Thank you for your message! I\'ll get back to you soon.');
             contactForm.reset();
+        } catch (error) {
+            // Error handling
+            console.error('Error sending email:', error);
+            alert('Sorry, there was an error sending your message. Please try again or contact me directly at akoushik@ualberta.ca');
+        } finally {
+            // Reset button state
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        }, 2000);
+        }
     });
 }
 
