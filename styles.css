@@ -533,7 +533,7 @@ section {
 .skills-grid {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 2rem;
     margin-top: 2rem;
     position: relative;
@@ -1037,7 +1037,10 @@ section {
     border-left: 8px solid #8b5cf6 !important;
 }
 .skill-category:nth-child(2) .skill-items .skill-item:nth-child(3) {
-    border-left: 8px solid #06b6d4 !important;
+    border-left: 8px solid #eab308 !important; /* Embedded C */
+}
+.skill-category:nth-child(2) .skill-items .skill-item:nth-child(4) {
+    border-left: 8px solid #06b6d4 !important; /* Assembly */
 }
 
 /* CAD & Design skills */
