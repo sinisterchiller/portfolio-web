@@ -113,121 +113,26 @@
         <div class="container">
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card project-card-visible">
                     <div class="project-image">
-                        <img src="images/fpga-logic-circuits.png" alt="FPGA Logic Circuits">
+                        <img src="images/Project-8.png" alt="ATtiny2313A Digital Combination Lock">
                     </div>
                     <div class="project-content">
-                        <h3>AND-OR-NOT Logic Circuits</h3>
-                        <p>Implementation and testing of AND, OR, and NOT logic circuits using K-Maps, WaveForms, and VHDL on the Zybo Z7 FPGA. Includes design, simulation, and verification results.</p>
+                        <h3>ATtiny2313A Digital Combination Lock</h3>
+                        <p>Implements a digital combination lock using pushbuttons, an RGB LED, and a piezo buzzer on the ATtiny2313A microcontroller. Demonstrates finite-state machine design, input debouncing, and real-time feedback control for user-entered unlock sequences.</p>
                         <div class="project-tech">
-                            <span>VHDL</span>
-                            <span>FPGA</span>
-                            <span>K-Maps</span>
-                            <span>Zybo Z7</span>
+                            <span>ATtiny2313A</span>
+                            <span>Embedded C</span>
+                            <span>Debouncing</span>
+                            <span>RGB LED</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/AND-OR-NOT-Logic-Circuits" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/sinisterchiller/ATtiny2313A-Digital-Combination-Lock" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/Project-2.png" alt="Combinational Logic Design">
-                    </div>
-                    <div class="project-content">
-                        <h3>Combinational Logic Design: MUX and DEMUX</h3>
-                        <p>Design and simulation of combinational logic circuits using multiplexers and demultiplexers. Includes Boolean simplification, VHDL code, waveform simulation, and FPGA testing. Demonstrates signal routing, control logic, and hardware implementation principles.</p>
-                        <div class="project-tech">
-                            <span>VHDL</span>
-                            <span>Multiplexers</span>
-                            <span>FPGA</span>
-                            <span>Boolean Logic</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/Combinational-Logic-Design-MUX-and-DEMUX-Experiment" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/Project-3.png" alt="7-Segment LED Decoder">
-                    </div>
-                    <div class="project-content">
-                        <h3>7-Segment LED Decoder and Counter</h3>
-                        <p>Design and implementation of a 7-segment LED decoder and counter using VHDL. Displays hexadecimal digits (0–F) and a two-digit counter on an FPGA. Demonstrates Boolean logic, case-based control, and multiplexing for dual-display output.</p>
-                        <div class="project-tech">
-                            <span>VHDL</span>
-                            <span>FPGA</span>
-                            <span>7-Segment Display</span>
-                            <span>Multiplexing</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/7-Segment-LED-Decoder-and-Counter-" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/Project-4.png" alt="ARM Assembly ASCII Conversion">
-                    </div>
-                    <div class="project-content">
-                        <h3>ARM Assembly ASCII Conversion & Case Transformation</h3>
-                        <p>ARM assembly program for ASCII conversion and case transformation on the STM32 NUCLEO-L432KC. Implements hexadecimal conversion and upper/lower case switching using THUMB2 instructions, memory operations, and data validation in STM32CubeIDE.</p>
-                        <div class="project-tech">
-                            <span>ARM Assembly</span>
-                            <span>STM32</span>
-                            <span>ASCII</span>
-                            <span>THUMB-2</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/ARM-Assembly-ASCII-Conversion-and-Case-Transformation" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/Project-5.png" alt="ARM Assembly Addressing Modes">
-                    </div>
-                    <div class="project-content">
-                        <h3>ARM Assembly Addressing Modes & Trapezoidal Integration</h3>
-                        <p>Implements and tests ARM THUMB2 addressing modes and numerical integration via the trapezoidal rule. Demonstrates register indirect, indexed, and post-increment addressing modes, bit-shift math for division and multiplication, and area estimation without using mul/div instructions.</p>
-                        <div class="project-tech">
-                            <span>ARM Assembly</span>
-                            <span>STM32</span>
-                            <span>Numerical Methods</span>
-                            <span>THUMB-2</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/ARM-Assembly-Addressing-Modes-and-Trapezoidal-Integration" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/Project-6.png" alt="ARM Assembly Bubble Sort">
-                    </div>
-                    <div class="project-content">
-                        <h3>ARM Assembly Modular Bubble Sort</h3>
-                        <p>Implements a modular bubble-sort program in ARM assembly with user input, dynamic memory, and stack-based data passing. Includes three subroutines: WelcomePrompt, Sort, and Display—each handling input validation, sorting, and output display on STM32 NUCLEO hardware.</p>
-                        <div class="project-tech">
-                            <span>ARM Assembly</span>
-                            <span>STM32</span>
-                            <span>THUMB-2</span>
-                            <span>Embedded Systems</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/ARM-Assembly-Modular-Bubble-Sort-with-User-Interaction" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
+                <div class="project-card project-card-visible">
                     <div class="project-image">
                         <img src="images/Project-7.png" alt="ATtiny2313A RGB LED via Touch Button">
                     </div>
@@ -246,24 +151,125 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card project-card-visible">
                     <div class="project-image">
-                        <img src="images/Project-8.png" alt="ATtiny2313A Digital Combination Lock">
+                        <img src="images/Project-6.png" alt="ARM Assembly Bubble Sort">
                     </div>
                     <div class="project-content">
-                        <h3>ATtiny2313A Digital Combination Lock</h3>
-                        <p>Implements a digital combination lock using pushbuttons, an RGB LED, and a piezo buzzer on the ATtiny2313A microcontroller. Demonstrates finite-state machine design, input debouncing, and real-time feedback control for user-entered unlock sequences.</p>
+                        <h3>ARM Assembly Modular Bubble Sort</h3>
+                        <p>Implements a modular bubble-sort program in ARM assembly with user input, dynamic memory, and stack-based data passing. Includes three subroutines: WelcomePrompt, Sort, and Display—each handling input validation, sorting, and output display on STM32 NUCLEO hardware.</p>
                         <div class="project-tech">
-                            <span>ATtiny2313A</span>
-                            <span>Embedded C</span>
-                            <span>Debouncing</span>
-                            <span>RGB LED</span>
+                            <span>ARM Assembly</span>
+                            <span>STM32</span>
+                            <span>THUMB-2</span>
+                            <span>Embedded Systems</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/sinisterchiller/ATtiny2313A-Digital-Combination-Lock" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://github.com/sinisterchiller/ARM-Assembly-Modular-Bubble-Sort-with-User-Interaction" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
+
+                <div class="project-card project-card-hidden">
+                    <div class="project-image">
+                        <img src="images/Project-5.png" alt="ARM Assembly Addressing Modes">
+                    </div>
+                    <div class="project-content">
+                        <h3>ARM Assembly Addressing Modes & Trapezoidal Integration</h3>
+                        <p>Implements and tests ARM THUMB2 addressing modes and numerical integration via the trapezoidal rule. Demonstrates register indirect, indexed, and post-increment addressing modes, bit-shift math for division and multiplication, and area estimation without using mul/div instructions.</p>
+                        <div class="project-tech">
+                            <span>ARM Assembly</span>
+                            <span>STM32</span>
+                            <span>Numerical Methods</span>
+                            <span>THUMB-2</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sinisterchiller/ARM-Assembly-Addressing-Modes-and-Trapezoidal-Integration" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-card-hidden">
+                    <div class="project-image">
+                        <img src="images/Project-4.png" alt="ARM Assembly ASCII Conversion">
+                    </div>
+                    <div class="project-content">
+                        <h3>ARM Assembly ASCII Conversion & Case Transformation</h3>
+                        <p>ARM assembly program for ASCII conversion and case transformation on the STM32 NUCLEO-L432KC. Implements hexadecimal conversion and upper/lower case switching using THUMB2 instructions, memory operations, and data validation in STM32CubeIDE.</p>
+                        <div class="project-tech">
+                            <span>ARM Assembly</span>
+                            <span>STM32</span>
+                            <span>ASCII</span>
+                            <span>THUMB-2</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sinisterchiller/ARM-Assembly-ASCII-Conversion-and-Case-Transformation" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-card-hidden">
+                    <div class="project-image">
+                        <img src="images/Project-3.png" alt="7-Segment LED Decoder">
+                    </div>
+                    <div class="project-content">
+                        <h3>7-Segment LED Decoder and Counter</h3>
+                        <p>Design and implementation of a 7-segment LED decoder and counter using VHDL. Displays hexadecimal digits (0–F) and a two-digit counter on an FPGA. Demonstrates Boolean logic, case-based control, and multiplexing for dual-display output.</p>
+                        <div class="project-tech">
+                            <span>VHDL</span>
+                            <span>FPGA</span>
+                            <span>7-Segment Display</span>
+                            <span>Multiplexing</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sinisterchiller/7-Segment-LED-Decoder-and-Counter-" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-card-hidden">
+                    <div class="project-image">
+                        <img src="images/Project-2.png" alt="Combinational Logic Design">
+                    </div>
+                    <div class="project-content">
+                        <h3>Combinational Logic Design: MUX and DEMUX</h3>
+                        <p>Design and simulation of combinational logic circuits using multiplexers and demultiplexers. Includes Boolean simplification, VHDL code, waveform simulation, and FPGA testing. Demonstrates signal routing, control logic, and hardware implementation principles.</p>
+                        <div class="project-tech">
+                            <span>VHDL</span>
+                            <span>Multiplexers</span>
+                            <span>FPGA</span>
+                            <span>Boolean Logic</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sinisterchiller/Combinational-Logic-Design-MUX-and-DEMUX-Experiment" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card project-card-hidden">
+                    <div class="project-image">
+                        <img src="images/fpga-logic-circuits.png" alt="FPGA Logic Circuits">
+                    </div>
+                    <div class="project-content">
+                        <h3>AND-OR-NOT Logic Circuits</h3>
+                        <p>Implementation and testing of AND, OR, and NOT logic circuits using K-Maps, WaveForms, and VHDL on the Zybo Z7 FPGA. Includes design, simulation, and verification results.</p>
+                        <div class="project-tech">
+                            <span>VHDL</span>
+                            <span>FPGA</span>
+                            <span>K-Maps</span>
+                            <span>Zybo Z7</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sinisterchiller/AND-OR-NOT-Logic-Circuits" target="_blank" class="btn btn-small btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="projects-see-more-wrapper">
+                <button id="projects-see-more-btn" class="btn btn-primary projects-see-more-btn">
+                    <span id="see-more-text">See More Projects</span>
+                    <i class="fas fa-chevron-down" id="see-more-icon"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -323,7 +329,42 @@
         </div>
     </footer>
 
+    <!-- Project README Modal -->
+    <div id="project-modal" class="project-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Project README</h2>
+                <button class="modal-close" id="modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div id="modal-loading" class="modal-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading README...</p>
+                </div>
+                <div id="modal-error" class="modal-error" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Unable to load README. Please check the repository link.</p>
+                </div>
+                <div id="modal-readme" class="modal-readme" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <script>
+        // Wait for marked to be available before configuring
+        if (typeof marked !== 'undefined') {
+            marked.use({
+                breaks: true,
+                gfm: true
+            });
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
