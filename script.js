@@ -832,10 +832,11 @@ document.addEventListener('DOMContentLoaded', () => {
         seeMoreBtn.addEventListener('click', () => {
             if (!isExpanded) {
                 // Animation sequence:
-                // hiddenCards order in DOM: [0=Project-5, 1=Project-4, 2=Project-3, 3=Project-2, 4=fpga-logic-circuits]
-                // Sequence: 1. Project-4 (ARM Assembly ASCII Conversion) first
-                //           2. Project-3 (7-Segment LED) and Project-5 (ARM Addressing Modes) together
-                //           3. After scroll: fpga-logic-circuits (AND-OR-NOT) and Project-2 (Combinational Logic) together
+                // hiddenCards order in DOM: [0=Project-6, 1=Project-5, 2=Project-4, 3=Project-3, 4=Project-2, 5=fpga-logic-circuits]
+                // Sequence: 1. Project-4 (ARM Assembly ASCII Conversion) - index 2, fades in first
+                //           2. Project-3 (7-Segment LED) - index 3, and Project-5 (ARM Addressing Modes) - index 1, together
+                //           3. After scroll: fpga-logic-circuits (AND-OR-NOT) - index 5, and Project-2 (Combinational Logic) - index 4, together
+                // Note: Project-6 (ARM Assembly Bubble Sort) - index 0, will appear with the first batch
                 
                 // Animation timing configuration (in milliseconds)
                 // Adjust this value to change the delay between center card and side cards
@@ -866,48 +867,51 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, delay);
                 };
                 
-                // Step 1: Project-4 (ARM Assembly ASCII Conversion) - index 1, fades in first
-                if (hiddenCards[1]) {
-                    animateCard(hiddenCards[1], 0);
+                // Step 1: Project-6 (ARM Assembly Bubble Sort) - index 0, and Project-4 (ARM Assembly ASCII Conversion) - index 2, fade in first
+                if (hiddenCards[0]) {
+                    animateCard(hiddenCards[0], 0);
+                }
+                if (hiddenCards[2]) {
+                    animateCard(hiddenCards[2], 150); // Slight delay after Project-6
                 }
                 
-                // Step 2: Project-3 (7-Segment LED) - index 2, and Project-5 (ARM Addressing Modes) - index 0
+                // Step 2: Project-3 (7-Segment LED) - index 3, and Project-5 (ARM Addressing Modes) - index 1
                 // Add Project-3 and Project-5 to DOM layout first (but invisible) to prevent displacement
                 setTimeout(() => {
                     // First, add both cards to layout but keep them invisible to prevent displacement
-                    if (hiddenCards[2]) {
-                        hiddenCards[2].classList.remove('project-card-hidden');
-                        hiddenCards[2].classList.add('project-card-visible');
-                        hiddenCards[2].style.display = 'block';
-                        hiddenCards[2].style.pointerEvents = 'auto';
-                        hiddenCards[2].style.opacity = '0';
-                        hiddenCards[2].style.transform = 'translateY(20px)';
-                        hiddenCards[2].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    if (hiddenCards[3]) {
+                        hiddenCards[3].classList.remove('project-card-hidden');
+                        hiddenCards[3].classList.add('project-card-visible');
+                        hiddenCards[3].style.display = 'block';
+                        hiddenCards[3].style.pointerEvents = 'auto';
+                        hiddenCards[3].style.opacity = '0';
+                        hiddenCards[3].style.transform = 'translateY(20px)';
+                        hiddenCards[3].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                         // Force reflow
-                        hiddenCards[2].offsetHeight;
+                        hiddenCards[3].offsetHeight;
                     }
-                    if (hiddenCards[0]) {
-                        hiddenCards[0].classList.remove('project-card-hidden');
-                        hiddenCards[0].classList.add('project-card-visible');
-                        hiddenCards[0].style.display = 'block';
-                        hiddenCards[0].style.pointerEvents = 'auto';
-                        hiddenCards[0].style.opacity = '0';
-                        hiddenCards[0].style.transform = 'translateY(20px)';
-                        hiddenCards[0].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    if (hiddenCards[1]) {
+                        hiddenCards[1].classList.remove('project-card-hidden');
+                        hiddenCards[1].classList.add('project-card-visible');
+                        hiddenCards[1].style.display = 'block';
+                        hiddenCards[1].style.pointerEvents = 'auto';
+                        hiddenCards[1].style.opacity = '0';
+                        hiddenCards[1].style.transform = 'translateY(20px)';
+                        hiddenCards[1].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                         // Force reflow
-                        hiddenCards[0].offsetHeight;
+                        hiddenCards[1].offsetHeight;
                     }
                     
                     // Now animate them in after a brief moment to ensure layout is stable
                     requestAnimationFrame(() => {
-                        if (hiddenCards[2]) {
-                            hiddenCards[2].style.opacity = '1';
-                            hiddenCards[2].style.transform = 'translateY(0)';
+                        if (hiddenCards[3]) {
+                            hiddenCards[3].style.opacity = '1';
+                            hiddenCards[3].style.transform = 'translateY(0)';
                         }
-                        if (hiddenCards[0]) {
+                        if (hiddenCards[1]) {
                             setTimeout(() => {
-                                hiddenCards[0].style.opacity = '1';
-                                hiddenCards[0].style.transform = 'translateY(0)';
+                                hiddenCards[1].style.opacity = '1';
+                                hiddenCards[1].style.transform = 'translateY(0)';
                             }, 150); // Slight stagger for visual effect
                         }
                     });
@@ -917,6 +921,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // They will fade in when they scroll into view
                 setTimeout(() => {
                     // Add the last two cards to layout but keep them invisible to prevent displacement
+                    if (hiddenCards[5]) {
+                        hiddenCards[5].classList.remove('project-card-hidden');
+                        hiddenCards[5].classList.add('project-card-visible');
+                        hiddenCards[5].style.display = 'block';
+                        hiddenCards[5].style.pointerEvents = 'auto';
+                        hiddenCards[5].style.opacity = '0';
+                        hiddenCards[5].style.transform = 'translateY(20px)';
+                        hiddenCards[5].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        hiddenCards[5].offsetHeight; // Force reflow
+                    }
                     if (hiddenCards[4]) {
                         hiddenCards[4].classList.remove('project-card-hidden');
                         hiddenCards[4].classList.add('project-card-visible');
@@ -927,19 +941,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         hiddenCards[4].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                         hiddenCards[4].offsetHeight; // Force reflow
                     }
-                    if (hiddenCards[3]) {
-                        hiddenCards[3].classList.remove('project-card-hidden');
-                        hiddenCards[3].classList.add('project-card-visible');
-                        hiddenCards[3].style.display = 'block';
-                        hiddenCards[3].style.pointerEvents = 'auto';
-                        hiddenCards[3].style.opacity = '0';
-                        hiddenCards[3].style.transform = 'translateY(20px)';
-                        hiddenCards[3].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                        hiddenCards[3].offsetHeight; // Force reflow
-                    }
                     
                     // Set up Intersection Observer for the last two cards
-                    const lastTwoCards = [hiddenCards[4], hiddenCards[3]].filter(Boolean);
+                    const lastTwoCards = [hiddenCards[5], hiddenCards[4]].filter(Boolean);
                     
                     if (lastTwoCards.length > 0) {
                         const observerOptions = {
