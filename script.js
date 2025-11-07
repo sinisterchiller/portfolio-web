@@ -833,14 +833,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isExpanded) {
                 // Animation sequence:
                 // hiddenCards order in DOM: [0=Project-6, 1=Project-5, 2=Project-4, 3=Project-3, 4=Project-2, 5=fpga-logic-circuits]
-                // Sequence: 1. Project-4 (ARM Assembly ASCII Conversion) - index 2, fades in first
-                //           2. Project-3 (7-Segment LED) - index 3, and Project-5 (ARM Addressing Modes) - index 1, together
-                //           3. After scroll: fpga-logic-circuits (AND-OR-NOT) - index 5, and Project-2 (Combinational Logic) - index 4, together
-                // Note: Project-6 (ARM Assembly Bubble Sort) - index 0, will appear with the first batch
+                // Sequence: 1. Project-5 (ARM Assembly Addressing Modes & Trapezoidal Integration) - index 1, fades in first
+                //           2. After 100ms: Project-6 (ARM Assembly Modular Bubble Sort) - index 0, and Project-4 (ARM Assembly ASCII Conversion) - index 2, together
+                //           3. After scroll: Last row - Project-2 (Combinational Logic) - index 4, fades in first, then after 200ms Project-3 (7-Segment LED) - index 3, and fpga-logic-circuits (AND-OR-NOT) - index 5, together
                 
                 // Animation timing configuration (in milliseconds)
-                // Adjust this value to change the delay between center card and side cards
-                const CENTER_TO_SIDE_DELAY = 100; // Default: 400ms
+                // Delay between Project-5 and the side cards (Project-6 and Project-4)
+                const CENTER_TO_SIDE_DELAY = 100;
                 
                 // Helper function to animate a card
                 const animateCard = (card, delay) => {
@@ -867,18 +866,70 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, delay);
                 };
                 
-                // Step 1: Project-6 (ARM Assembly Bubble Sort) - index 0, and Project-4 (ARM Assembly ASCII Conversion) - index 2, fade in first
-                if (hiddenCards[0]) {
-                    animateCard(hiddenCards[0], 0);
-                }
-                if (hiddenCards[2]) {
-                    animateCard(hiddenCards[2], 150); // Slight delay after Project-6
+                // Step 1: Project-5 (ARM Assembly Addressing Modes & Trapezoidal Integration) - index 1, fades in first
+                if (hiddenCards[1]) {
+                    // Add to layout first
+                    hiddenCards[1].classList.remove('project-card-hidden');
+                    hiddenCards[1].classList.add('project-card-visible');
+                    hiddenCards[1].style.display = 'block';
+                    hiddenCards[1].style.pointerEvents = 'auto';
+                    hiddenCards[1].style.opacity = '0';
+                    hiddenCards[1].style.transform = 'translateY(20px)';
+                    hiddenCards[1].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    hiddenCards[1].offsetHeight; // Force reflow
+                    
+                    // Then animate in
+                    requestAnimationFrame(() => {
+                        hiddenCards[1].style.opacity = '1';
+                        hiddenCards[1].style.transform = 'translateY(0)';
+                    });
                 }
                 
-                // Step 2: Project-3 (7-Segment LED) - index 3, and Project-5 (ARM Addressing Modes) - index 1
-                // Add Project-3 and Project-5 to DOM layout first (but invisible) to prevent displacement
+                // Step 2: Project-6 (ARM Assembly Modular Bubble Sort) - index 0, and Project-4 (ARM Assembly ASCII Conversion) - index 2
+                // Add both cards to DOM layout first (but invisible) to prevent displacement
                 setTimeout(() => {
                     // First, add both cards to layout but keep them invisible to prevent displacement
+                    if (hiddenCards[0]) {
+                        hiddenCards[0].classList.remove('project-card-hidden');
+                        hiddenCards[0].classList.add('project-card-visible');
+                        hiddenCards[0].style.display = 'block';
+                        hiddenCards[0].style.pointerEvents = 'auto';
+                        hiddenCards[0].style.opacity = '0';
+                        hiddenCards[0].style.transform = 'translateY(20px)';
+                        hiddenCards[0].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        // Force reflow
+                        hiddenCards[0].offsetHeight;
+                    }
+                    if (hiddenCards[2]) {
+                        hiddenCards[2].classList.remove('project-card-hidden');
+                        hiddenCards[2].classList.add('project-card-visible');
+                        hiddenCards[2].style.display = 'block';
+                        hiddenCards[2].style.pointerEvents = 'auto';
+                        hiddenCards[2].style.opacity = '0';
+                        hiddenCards[2].style.transform = 'translateY(20px)';
+                        hiddenCards[2].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        // Force reflow
+                        hiddenCards[2].offsetHeight;
+                    }
+                    
+                    // Now animate them in after a brief moment to ensure layout is stable
+                    requestAnimationFrame(() => {
+                        if (hiddenCards[0]) {
+                            hiddenCards[0].style.opacity = '1';
+                            hiddenCards[0].style.transform = 'translateY(0)';
+                        }
+                        if (hiddenCards[2]) {
+                            hiddenCards[2].style.opacity = '1';
+                            hiddenCards[2].style.transform = 'translateY(0)';
+                        }
+                    });
+                }, CENTER_TO_SIDE_DELAY); // Wait 100ms after Project-5 starts appearing
+                
+                // Step 3: Add the last row cards to layout but keep them invisible
+                // Last row: Project-3 (7-Segment LED) - index 3, Project-2 (Combinational Logic) - index 4, fpga-logic-circuits (AND-OR-NOT) - index 5
+                // They will fade in when they scroll into view: Project-2 first, then after 200ms the other two together
+                setTimeout(() => {
+                    // Add all three last row cards to layout but keep them invisible to prevent displacement
                     if (hiddenCards[3]) {
                         hiddenCards[3].classList.remove('project-card-hidden');
                         hiddenCards[3].classList.add('project-card-visible');
@@ -887,49 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         hiddenCards[3].style.opacity = '0';
                         hiddenCards[3].style.transform = 'translateY(20px)';
                         hiddenCards[3].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                        // Force reflow
-                        hiddenCards[3].offsetHeight;
-                    }
-                    if (hiddenCards[1]) {
-                        hiddenCards[1].classList.remove('project-card-hidden');
-                        hiddenCards[1].classList.add('project-card-visible');
-                        hiddenCards[1].style.display = 'block';
-                        hiddenCards[1].style.pointerEvents = 'auto';
-                        hiddenCards[1].style.opacity = '0';
-                        hiddenCards[1].style.transform = 'translateY(20px)';
-                        hiddenCards[1].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                        // Force reflow
-                        hiddenCards[1].offsetHeight;
-                    }
-                    
-                    // Now animate them in after a brief moment to ensure layout is stable
-                    requestAnimationFrame(() => {
-                        if (hiddenCards[3]) {
-                            hiddenCards[3].style.opacity = '1';
-                            hiddenCards[3].style.transform = 'translateY(0)';
-                        }
-                        if (hiddenCards[1]) {
-                            setTimeout(() => {
-                                hiddenCards[1].style.opacity = '1';
-                                hiddenCards[1].style.transform = 'translateY(0)';
-                            }, 150); // Slight stagger for visual effect
-                        }
-                    });
-                }, CENTER_TO_SIDE_DELAY); // Wait for Project-4 to start appearing
-                
-                // Step 3: Add the last two cards to layout but keep them invisible
-                // They will fade in when they scroll into view
-                setTimeout(() => {
-                    // Add the last two cards to layout but keep them invisible to prevent displacement
-                    if (hiddenCards[5]) {
-                        hiddenCards[5].classList.remove('project-card-hidden');
-                        hiddenCards[5].classList.add('project-card-visible');
-                        hiddenCards[5].style.display = 'block';
-                        hiddenCards[5].style.pointerEvents = 'auto';
-                        hiddenCards[5].style.opacity = '0';
-                        hiddenCards[5].style.transform = 'translateY(20px)';
-                        hiddenCards[5].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                        hiddenCards[5].offsetHeight; // Force reflow
+                        hiddenCards[3].offsetHeight; // Force reflow
                     }
                     if (hiddenCards[4]) {
                         hiddenCards[4].classList.remove('project-card-hidden');
@@ -941,51 +950,143 @@ document.addEventListener('DOMContentLoaded', () => {
                         hiddenCards[4].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                         hiddenCards[4].offsetHeight; // Force reflow
                     }
+                    if (hiddenCards[5]) {
+                        hiddenCards[5].classList.remove('project-card-hidden');
+                        hiddenCards[5].classList.add('project-card-visible');
+                        hiddenCards[5].style.display = 'block';
+                        hiddenCards[5].style.pointerEvents = 'auto';
+                        hiddenCards[5].style.opacity = '0';
+                        hiddenCards[5].style.transform = 'translateY(20px)';
+                        hiddenCards[5].style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        hiddenCards[5].offsetHeight; // Force reflow
+                    }
                     
-                    // Set up Intersection Observer for the last two cards
-                    const lastTwoCards = [hiddenCards[5], hiddenCards[4]].filter(Boolean);
+                    // Set up Intersection Observer for the last row cards
+                    // Animation sequence: Project-2 (index 4) fades in first, then after 200ms Project-3 (index 3) and fpga-logic-circuits (index 5) fade in together
+                    const LAST_ROW_DELAY = 200;
+                    const lastRowCards = [hiddenCards[3], hiddenCards[4], hiddenCards[5]].filter(Boolean);
+                    let lastRowAnimated = false;
                     
-                    if (lastTwoCards.length > 0) {
-                        const observerOptions = {
-                            root: null,
-                            rootMargin: '0px',
-                            threshold: 0.1 // Trigger when 10% of the card is visible
-                        };
-                        
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach((entry, index) => {
-                                if (entry.isIntersecting) {
-                                    const card = entry.target;
-                                    // Fade in the card
-                                    requestAnimationFrame(() => {
-                                        card.style.opacity = '1';
-                                        card.style.transform = 'translateY(0)';
-                                    });
-                                    // Stop observing once it's animated in
-                                    observer.unobserve(card);
-                                }
-                            });
-                        }, observerOptions);
-                        
-                        // Start observing both cards
-                        lastTwoCards.forEach(card => {
-                            // Check if card is already in view
-                            const rect = card.getBoundingClientRect();
-                            const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-                            
-                            if (isInView) {
-                                // If already in view, fade in immediately
-                                requestAnimationFrame(() => {
-                                    card.style.opacity = '1';
-                                    card.style.transform = 'translateY(0)';
-                                });
-                            } else {
-                                // Otherwise, observe for when it comes into view
-                                observer.observe(card);
+                    if (lastRowCards.length > 0) {
+                        // Ensure all cards have proper initial state and transition before setting up observer
+                        lastRowCards.forEach(card => {
+                            if (card) {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(20px)';
+                                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                             }
                         });
+                        
+                        // Small delay to ensure styles are applied
+                        setTimeout(() => {
+                            const observerOptions = {
+                                root: null,
+                                rootMargin: '0px',
+                                threshold: 0.1
+                            };
+                            
+                            const observer = new IntersectionObserver((entries) => {
+                                const intersectingCards = entries.filter(entry => entry.isIntersecting);
+                                
+                                if (intersectingCards.length > 0 && !lastRowAnimated) {
+                                    lastRowAnimated = true;
+                                    
+                                    // Ensure all cards start with opacity 0 and proper transform
+                                    lastRowCards.forEach(card => {
+                                        if (card) {
+                                            card.style.opacity = '0';
+                                            card.style.transform = 'translateY(20px)';
+                                            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                                        }
+                                    });
+                                    
+                                    // Force reflow to ensure initial state is applied
+                                    hiddenCards[4]?.offsetHeight;
+                                    
+                                    // Step 1: Project-2 (Combinational Logic Design: MUX and DEMUX) - index 4, fades in first
+                                    requestAnimationFrame(() => {
+                                        if (hiddenCards[4]) {
+                                            hiddenCards[4].style.opacity = '1';
+                                            hiddenCards[4].style.transform = 'translateY(0)';
+                                        }
+                                    });
+                                    
+                                    // Step 2: After 200ms, Project-3 (7-Segment LED) - index 3, and fpga-logic-circuits (AND-OR-NOT) - index 5, fade in together
+                                    setTimeout(() => {
+                                        // Force reflow for the other two cards
+                                        hiddenCards[3]?.offsetHeight;
+                                        hiddenCards[5]?.offsetHeight;
+                                        
+                                        requestAnimationFrame(() => {
+                                            if (hiddenCards[3]) {
+                                                hiddenCards[3].style.opacity = '1';
+                                                hiddenCards[3].style.transform = 'translateY(0)';
+                                            }
+                                            if (hiddenCards[5]) {
+                                                hiddenCards[5].style.opacity = '1';
+                                                hiddenCards[5].style.transform = 'translateY(0)';
+                                            }
+                                        });
+                                    }, LAST_ROW_DELAY);
+                                    
+                                    lastRowCards.forEach(card => observer.unobserve(card));
+                                }
+                            }, observerOptions);
+                            
+                            const checkIfInView = () => {
+                                if (lastRowAnimated) return;
+                                
+                                // Ensure all cards start with opacity 0 and proper transform
+                                lastRowCards.forEach(card => {
+                                    if (card) {
+                                        card.style.opacity = '0';
+                                        card.style.transform = 'translateY(20px)';
+                                        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                                    }
+                                });
+                                
+                                // Force reflow to ensure styles are applied
+                                lastRowCards.forEach(card => card?.offsetHeight);
+                                
+                                const project2Rect = hiddenCards[4]?.getBoundingClientRect();
+                                if (project2Rect && project2Rect.top < window.innerHeight && project2Rect.bottom > 0) {
+                                    lastRowAnimated = true;
+                                    
+                                    // Force reflow to ensure initial state is applied
+                                    hiddenCards[4]?.offsetHeight;
+                                    
+                                    requestAnimationFrame(() => {
+                                        if (hiddenCards[4]) {
+                                            hiddenCards[4].style.opacity = '1';
+                                            hiddenCards[4].style.transform = 'translateY(0)';
+                                        }
+                                    });
+                                    
+                                    setTimeout(() => {
+                                        // Force reflow for the other two cards
+                                        hiddenCards[3]?.offsetHeight;
+                                        hiddenCards[5]?.offsetHeight;
+                                        
+                                        requestAnimationFrame(() => {
+                                            if (hiddenCards[3]) {
+                                                hiddenCards[3].style.opacity = '1';
+                                                hiddenCards[3].style.transform = 'translateY(0)';
+                                            }
+                                            if (hiddenCards[5]) {
+                                                hiddenCards[5].style.opacity = '1';
+                                                hiddenCards[5].style.transform = 'translateY(0)';
+                                            }
+                                        });
+                                    }, LAST_ROW_DELAY);
+                                } else {
+                                    lastRowCards.forEach(card => observer.observe(card));
+                                }
+                            };
+                            
+                            checkIfInView();
+                        }, 50); // Small delay to ensure styles are applied before checking
                     }
-                }, 1000); // Wait for Project-3 and Project-5 to start appearing
+                }, 1000); // Wait for Project-6 and Project-4 to start appearing
                 
                 seeMoreText.textContent = 'See Less Projects';
                 seeMoreBtn.classList.add('expanded');
@@ -1019,10 +1120,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 seeMoreBtn.classList.remove('expanded');
                 isExpanded = false;
                 
-                // Scroll to center the "See More Projects" button
+                // Scroll to the projects section
                 setTimeout(() => {
-                    if (seeMoreBtn) {
-                        seeMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const projectsSection = document.getElementById('projects');
+                    if (projectsSection) {
+                        projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 }, 100); // Small delay to ensure collapse animation completes
             }
