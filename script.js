@@ -273,7 +273,7 @@ backToTopBtn.addEventListener('mouseleave', () => {
 });
 
 // Project Modal Functionality - Variables will be initialized in DOMContentLoaded
-let projectModal, modalClose, modalTitle, modalLoading, modalError, modalReadme, modalOverlay;
+let projectModal, modalClose, modalTitle, modalLoading, modalError, modalReadme, modalOverlay, modalThumbnail, modalThumbnailImg;
 
 // Configure marked.js for GitHub Flavored Markdown
 // This will be called when marked is available
@@ -403,6 +403,17 @@ async function openProjectModal(projectCard, event) {
     const projectTitle = projectCard.querySelector('.project-content h3')?.textContent || 'Project README';
     modalTitle.textContent = projectTitle;
 
+    // Get project thumbnail image
+    const projectImage = projectCard.querySelector('.project-image img');
+    if (projectImage && modalThumbnail && modalThumbnailImg) {
+        modalThumbnailImg.src = projectImage.src;
+        modalThumbnailImg.alt = projectImage.alt || projectTitle;
+        // Show thumbnail immediately when modal opens
+        modalThumbnail.style.display = 'block';
+    } else if (modalThumbnail) {
+        modalThumbnail.style.display = 'none';
+    }
+
     // Get card position and size for animation
     const cardRect = projectCard.getBoundingClientRect();
     const cardCenterX = cardRect.left + cardRect.width / 2;
@@ -460,6 +471,7 @@ async function openProjectModal(projectCard, event) {
     modalLoading.style.display = 'flex';
     modalError.style.display = 'none';
     modalReadme.style.display = 'none';
+    // Thumbnail is already shown if it was set above
 
     // Start animation immediately in next frame
     requestAnimationFrame(() => {
@@ -526,10 +538,15 @@ async function openProjectModal(projectCard, event) {
         // Show README content
         modalLoading.style.display = 'none';
         modalReadme.style.display = 'block';
+        // Thumbnail should already be visible if it was set
     } catch (error) {
         console.error('Error loading README:', error);
         modalLoading.style.display = 'none';
         modalError.style.display = 'flex';
+        // Hide thumbnail on error
+        if (modalThumbnail) {
+            modalThumbnail.style.display = 'none';
+        }
     }
 }
 
@@ -550,6 +567,12 @@ function closeProjectModal() {
             projectModal.classList.remove('active');
             document.body.style.overflow = '';
             modalReadme.innerHTML = '';
+            if (modalThumbnail) {
+                modalThumbnail.style.display = 'none';
+            }
+            if (modalThumbnailImg) {
+                modalThumbnailImg.src = '';
+            }
             
             // Reset modal container styles
             modalContainer.style.transform = '';
@@ -569,6 +592,12 @@ function closeProjectModal() {
         projectModal.classList.remove('active');
         document.body.style.overflow = '';
         modalReadme.innerHTML = '';
+        if (modalThumbnail) {
+            modalThumbnail.style.display = 'none';
+        }
+        if (modalThumbnailImg) {
+            modalThumbnailImg.src = '';
+        }
     }
 }
 
@@ -789,6 +818,8 @@ document.addEventListener('DOMContentLoaded', () => {
     modalError = document.getElementById('modal-error');
     modalReadme = document.getElementById('modal-readme');
     modalOverlay = document.querySelector('.modal-overlay');
+    modalThumbnail = document.getElementById('modal-thumbnail');
+    modalThumbnailImg = document.getElementById('modal-thumbnail-img');
     
     const projectCards = document.querySelectorAll('.project-card');
     

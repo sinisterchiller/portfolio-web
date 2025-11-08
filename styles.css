@@ -1185,6 +1185,22 @@ section {
     position: relative;
 }
 
+.modal-thumbnail {
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
 .modal-loading,
 .modal-error {
     display: flex;
