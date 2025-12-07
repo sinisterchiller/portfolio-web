@@ -321,8 +321,14 @@ export function ExpandableCardDemo() {
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col hover:bg-neutral-900 rounded-xl cursor-pointer bg-black shadow-md opacity-100"
-            style={{ minHeight: '480px', height: '480px' }}
+            className="p-4 flex flex-col rounded-xl cursor-pointer shadow-md transition-colors"
+            style={{ 
+              minHeight: '480px', 
+              height: '480px',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.9)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'}
           >
             <div className="flex gap-4 flex-col w-full h-full">
               <motion.div layoutId={`image-${card.title}-${id}`} className="w-full">

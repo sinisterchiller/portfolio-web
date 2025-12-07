@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import ParticlesBackground from './components/ParticlesBackground.jsx'
 import './index.css'
 
 // Wait for DOM to be ready
@@ -18,6 +19,7 @@ function init() {
       const root = ReactDOM.createRoot(rootElement)
       root.render(
         <React.StrictMode>
+          <ParticlesBackground />
           <App />
         </React.StrictMode>,
       )
@@ -42,6 +44,7 @@ function init() {
           const root = ReactDOM.createRoot(retryElement)
           root.render(
             <React.StrictMode>
+              <ParticlesBackground />
               <App />
             </React.StrictMode>,
           )
