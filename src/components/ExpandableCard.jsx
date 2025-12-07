@@ -1,4 +1,5 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "../hooks/use-outside-click.js";
 import { marked } from "marked";
@@ -155,28 +156,24 @@ export function ExpandableCardDemo() {
     firstCard: cards?.[0]
   });
 
-  return (
+  // Render modal in portal to ensure it's always on top
+  const modalContent = (
     <>
-      {/* Debug: Visible test element */}
-      {process.env.NODE_ENV === 'development' && (
-        <div style={{ padding: '10px', background: 'rgba(255,0,0,0.1)', marginBottom: '10px', fontSize: '12px' }}>
-          React is working! Cards: {cards?.length || 0}
-        </div>
-      )}
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm h-full w-full z-10"
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm h-full w-full"
+            style={{ zIndex: 9998 }}
           />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
-        {active && typeof active === "object" ? (
-          <div className="fixed inset-0 grid place-items-center z-[100]">
+        {active && typeof active === "object" && (
+          <div className="fixed inset-0 grid place-items-center" style={{ zIndex: 9999 }}>
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
@@ -292,8 +289,21 @@ export function ExpandableCardDemo() {
             </div>
             </motion.div>
           </div>
-        ) : null}
+        )}
       </AnimatePresence>
+    </>
+  );
+
+  return (
+    <>
+      {/* Debug: Visible test element */}
+      {process.env.NODE_ENV === 'development' && (
+        <div style={{ padding: '10px', background: 'rgba(255,0,0,0.1)', marginBottom: '10px', fontSize: '12px' }}>
+          React is working! Cards: {cards?.length || 0}
+        </div>
+      )}
+      {/* Render modal in portal to document.body to ensure it's always on top */}
+      {typeof document !== 'undefined' && createPortal(modalContent, document.body)}
 
       {!cards || cards.length === 0 ? (
         <div className="max-w-6xl mx-auto w-full text-center py-8">
