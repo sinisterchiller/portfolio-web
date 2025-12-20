@@ -315,13 +315,13 @@ export function ExpandableCardDemo() {
           </p>
         </div>
       ) : null}
-      <ul className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-4">
+      <ul className="max-w-6xl mx-auto w-full flex flex-wrap justify-center items-start gap-4">
         {cards && cards.length > 0 ? cards.map((card, index) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col rounded-xl cursor-pointer shadow-md transition-colors"
+            className="p-4 flex flex-col rounded-xl cursor-pointer shadow-md transition-colors w-full md:w-[calc(50%-0.5rem)] lg:w-[350px]"
             style={{ 
               minHeight: '480px', 
               height: '480px',
@@ -368,7 +368,7 @@ export function ExpandableCardDemo() {
             </div>
           </motion.div>
         )) : (
-          <div className="col-span-full text-center text-neutral-400 py-8">
+          <div className="w-full text-center text-neutral-400 py-8">
             <p>No projects found. Cards: {cards ? cards.length : 'undefined'}</p>
           </div>
         )}
@@ -412,6 +412,48 @@ export const CloseIcon = () => {
 
 // Cards data without base URL - will be applied at runtime
 const cardsData = [
+  {
+    description: "A modular home security system built around multiple AVR microcontrollers communicating over UART, with temperature monitoring, intrusion detection, and keypad authentication.",
+    title: "Multi-MCU Home Security System",
+    src: "images/Project-11.jpg",
+    ctaText: "View on GitHub",
+    ctaLink: "https://github.com/sinisterchiller/Multi-MCU-Home-Security-System",
+    readmePath: "projects/Multi-MCU-Home-Security-System/README.md",
+    tech: ["ATmega328P", "ATtiny2313A", "Embedded C", "UART", "Multi-MCU"],
+    content: () => {
+      return (
+        <div>
+          <p className="mb-4">
+            Implements a modular home security system built around multiple AVR microcontrollers communicating over UART. The system includes a master controller (ATmega328P) that handles keypad authentication and temperature monitoring, Slave A (ATmega328P) for keypad scanning and ultrasonic motion detection, and Slave B (ATtiny2313A) for temperature display.
+          </p>
+          <p className="mb-4">
+            The project demonstrates practical distributed embedded design, combining sensing, communication, and user interaction. Features include temperature threshold alarms, motion-based intrusion detection, keypad-based authentication with retry limits, and comprehensive visual and audible feedback through LCDs, RGB LEDs, and buzzers.
+          </p>
+        </div>
+      );
+    },
+  },
+  {
+    description: "Implements a two-axis joystick interface using the ATmega328P microcontroller with ADC sampling, LCD display, and UART communication.",
+    title: "ATmega328P Joystick Interface with ADC and UART",
+    src: "images/Project-10.jpg",
+    ctaText: "View on GitHub",
+    ctaLink: "https://github.com/sinisterchiller/ATmega328P-Joystick-Interface-with-ADC-and-UART",
+    readmePath: "projects/ATmega328P---Joystick-Interface-with-ADC-and-UART/README.md",
+    tech: ["ATmega328P", "Embedded C", "ADC", "UART", "LCD"],
+    content: () => {
+      return (
+        <div>
+          <p className="mb-4">
+            Implements a two-axis joystick interface using the ATmega328P microcontroller. The system samples analog joystick voltages using the on-chip ADC, displays the values on a 16×2 LCD, and streams real-time position data to a PC via UART.
+          </p>
+          <p className="mb-4">
+            The project demonstrates practical integration of analog sensing, digital communication, and real-time data processing in embedded systems. Key features include dynamic ADC channel switching, UART data transmission, and joystick switch detection.
+          </p>
+        </div>
+      );
+    },
+  },
   {
     description: "Implements a digital tape measure using an ATmega328P microcontroller, an HC-SR04 ultrasonic sensor, and a 16×2 LCD.",
     title: "ATmega328P Ultrasonic Digital Tape Measure",
