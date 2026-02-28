@@ -8,8 +8,8 @@ const navLinks = [
 ]
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/sinisterchiller", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.instagram.com/koushik_xdd/", label: "Instagram" },
   { icon: Mail, href: "mailto:akoushik@ualberta.ca", label: "Email" },
 ]
 

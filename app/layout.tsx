@@ -11,21 +11,8 @@ export const metadata: Metadata = {
   description: 'Portfolio of Anurag Biswas Koushik — 3rd Year Electrical Engineering student at the University of Alberta specializing in embedded systems, microcontrollers, and hardware-software integration.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
 }
 
