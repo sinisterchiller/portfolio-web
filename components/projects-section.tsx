@@ -49,6 +49,53 @@ type Project = {
 /* ------------------------------------------------------------------ */
 const projects: Project[] = [
   {
+    title: "PostureBot (SillyCon)",
+    description:
+      "Interactive game hub that uses webcam + MediaPipe head/pose tracking to drive two mini-games (Traffic Rush + Tilt Master) with a FastAPI orchestrator and a Next.js UI.",
+    tags: ["Next.js", "FastAPI", "MediaPipe", "OpenCV", "Pygame", "pyautogui"],
+    category: "Software / Computer Vision",
+    icon: Eye,
+    github: "https://github.com/sinisterchiller/PostureBot",
+    detail: {
+      overview:
+        "PostureBot is a webcam-driven 'Game Hub' that uses MediaPipe pose/head tracking to control two interactive games. A Next.js frontend triggers a FastAPI orchestration backend that launches and stops game processes, supports a posture-monitoring 'Police Mode', and routes real-time tilt/posture signals to the games.",
+      objectives: [
+        "Build a simple web hub to launch/stop games and toggle Police Mode",
+        "Use webcam pose/head tracking to control gameplay hands-free",
+        "Orchestrate multiple Python processes safely from a single backend",
+      ],
+      architecture: [
+        {
+          title: "Frontend (Next.js)",
+          description:
+            "Game hub UI that calls the orchestrator endpoints (/game, /mode, /close).",
+        },
+        {
+          title: "Orchestrator (FastAPI)",
+          description:
+            "Central service that starts/stops game processes and posture monitoring, and exposes control endpoints on port 2301.",
+        },
+        {
+          title: "Game stacks",
+          description:
+            "Traffic Rush uses Pygame + pyautogui for steering via head tilt; Tilt Master uses OpenCV overlays + MediaPipe-based tilt detection to drive a quiz flow.",
+        },
+      ],
+      features: [
+        { title: "Hands-free controls", description: "Head tilt input via MediaPipe tracking" },
+        { title: "Game orchestration", description: "One API to launch/stop games and monitoring" },
+        { title: "Police Mode", description: "Detects sustained bad posture and triggers consequences" },
+      ],
+      testing: [
+        "Verified orchestrator endpoints correctly start/stop game processes",
+        "Validated head-tilt thresholds and smoothing for stable controls",
+        "Tested Police Mode posture timing and trigger behavior",
+      ],
+      discussion:
+        "This project combines real-time computer vision input with multi-process orchestration. The main engineering challenges were robust process lifecycle management, stabilizing noisy head-tilt signals, and keeping the UX responsive while games run independently.",
+    },
+  },
+  {
     title: "Multi-MCU Home Security System",
     description:
       "A modular home security system built around multiple AVR microcontrollers communicating over UART, with temperature monitoring, intrusion detection, and keypad authentication.",
@@ -805,7 +852,7 @@ function ProjectModal({
       {/* Panel */}
       <div
         ref={contentRef}
-        className={`relative z-10 flex max-h-[85vh] w-full max-w-2xl flex-col rounded-2xl border border-border/60 bg-card shadow-2xl shadow-primary/5 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${panelClass}`}
+        className={`relative z-10 flex max-h-[85vh] w-full max-w-6xl flex-col rounded-2xl border border-border/60 bg-card shadow-2xl shadow-primary/5 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${panelClass}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Title bar — macOS-inspired */}
