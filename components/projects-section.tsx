@@ -49,7 +49,7 @@ type Project = {
 /* ------------------------------------------------------------------ */
 const projects: Project[] = [
   {
-    title: "PostureBot (SillyCon)",
+    title: "PostureBot (SillyCon Valley Hackathon Submission)",
     description:
       "Interactive game hub that uses webcam + MediaPipe head/pose tracking to drive two mini-games (Traffic Rush + Tilt Master) with a FastAPI orchestrator and a Next.js UI.",
     tags: ["Next.js", "FastAPI", "MediaPipe", "OpenCV", "Pygame", "pyautogui"],
