@@ -4,6 +4,9 @@ import { useState, useEffect, useRef } from "react"
 import { SectionHeader } from "./about-section"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
 
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xgonjkwb"
+
 const contactInfo = [
   {
     icon: Mail,
@@ -28,6 +31,7 @@ const contactInfo = [
 export function ContactSection() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,6 +54,17 @@ export function ContactSection() {
           title="Let's Work Together"
           description="Open to opportunities, collaborations, and interesting projects. Whether you have a question or just want to say hello, I'd love to hear from you."
         />
+
+        <div className="mb-4 min-h-[1.5rem]" aria-live="polite" aria-atomic="true">
+          {status === "success" && (
+            <p className="text-sm text-accent">Message sent. I’ll get back to you soon.</p>
+          )}
+          {status === "error" && (
+            <p className="text-sm text-destructive">
+              Something went wrong. Try again or email directly.
+            </p>
+          )}
+        </div>
 
         <div
           className={`grid gap-10 lg:grid-cols-2 lg:gap-16 transition-all duration-700 ${
@@ -103,11 +118,39 @@ export function ContactSection() {
 
           {/* Contact form */}
           <form
+            action={FORMSPREE_ENDPOINT}
+            method="POST"
             className="space-y-4"
             onSubmit={(e) => {
               e.preventDefault()
+              const form = e.currentTarget
+              setStatus("submitting")
+              void (async () => {
+                try {
+                  const formData = new FormData(form)
+                  const topic = String(formData.get("topic") ?? "").trim()
+                  formData.set(
+                    "_subject",
+                    topic ? `Portfolio: ${topic}` : "New portfolio contact"
+                  )
+                  const res = await fetch(FORMSPREE_ENDPOINT, {
+                    method: "POST",
+                    body: formData,
+                    headers: { Accept: "application/json" },
+                  })
+                  if (res.ok) {
+                    setStatus("success")
+                    form.reset()
+                  } else {
+                    setStatus("error")
+                  }
+                } catch {
+                  setStatus("error")
+                }
+              })()
             }}
           >
+            <input type="hidden" name="_subject" value="New portfolio contact" />
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label
@@ -118,7 +161,9 @@ export function ContactSection() {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   type="text"
+                  required
                   placeholder="Your name"
                   className="w-full rounded-lg border border-border/50 bg-secondary/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/20"
                 />
@@ -132,7 +177,9 @@ export function ContactSection() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
+                  required
                   placeholder="your@email.com"
                   className="w-full rounded-lg border border-border/50 bg-secondary/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/20"
                 />
@@ -140,14 +187,16 @@ export function ContactSection() {
             </div>
             <div>
               <label
-                htmlFor="subject"
+                htmlFor="topic"
                 className="mb-2 block font-mono text-[10px] tracking-wider text-muted-foreground"
               >
                 SUBJECT
               </label>
               <input
-                id="subject"
+                id="topic"
+                name="topic"
                 type="text"
+                required
                 placeholder="What's this about?"
                 className="w-full rounded-lg border border-border/50 bg-secondary/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/20"
               />
@@ -161,16 +210,19 @@ export function ContactSection() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={5}
+                required
                 placeholder="Tell me about your project or opportunity..."
                 className="w-full resize-none rounded-lg border border-border/50 bg-secondary/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/20"
               />
             </div>
             <button
               type="submit"
-              className="group flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-mono text-sm font-medium text-primary-foreground transition-all hover:shadow-[0_0_20px_-3px] hover:shadow-primary/40"
+              disabled={status === "submitting"}
+              className="group flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-mono text-sm font-medium text-primary-foreground transition-all hover:shadow-[0_0_20px_-3px] hover:shadow-primary/40 disabled:opacity-60"
             >
-              Send Message
+              {status === "submitting" ? "Sending…" : "Send Message"}
               <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
           </form>
