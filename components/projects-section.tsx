@@ -174,6 +174,102 @@ const projects: Project[] = [
     },
   },
   {
+    title: "Three-Phase Electric Machines & Power Measurement Lab",
+    description:
+      "Characterized DC motors, three-phase induction motors, and synchronous machines through no-load, locked-rotor, and load testing, and applied single-, two-, and three-wattmeter methods to measure real, reactive, and apparent power on three-phase loads.",
+    tags: ["Electric Machines", "Three-Phase Power", "Power Measurement", "Lab-Volt EMS"],
+    category: "Power Engineering",
+    icon: Zap,
+    detail: {
+      overview:
+        "University laboratory coursework (ECE332) investigating the operating characteristics of DC motors, three-phase induction motors, and synchronous machines using Lab-Volt EMS equipment. Equivalent circuit parameters were derived from standard tests and compared against measured performance under load.",
+      objectives: [
+        "Characterize DC motor performance through resistance and no-load speed tests",
+        "Determine induction motor equivalent circuit parameters via no-load, synchronous-speed, and locked-rotor tests",
+        "Characterize synchronous machine open-circuit and short-circuit behavior",
+        "Apply single-, two-, and three-wattmeter methods to measure three-phase real, reactive, and apparent power",
+      ],
+      architecture: [
+        {
+          title: "DC Motor Testing",
+          description:
+            "Measured armature and field winding resistances, then ran no-load speed tests under separately excited configurations to characterize speed-voltage-current relationships.",
+        },
+        {
+          title: "Induction Motor Testing",
+          description:
+            "Performed load, no-load, synchronous-speed, and locked-rotor tests on a three-phase squirrel-cage induction machine to extract equivalent circuit parameters and predict performance.",
+        },
+        {
+          title: "Synchronous Machine Testing",
+          description:
+            "Ran open-circuit and short-circuit tests on a synchronous machine driven by a four-quadrant dynamometer, then computed synchronous reactance, voltage regulation, and excitation requirements.",
+        },
+        {
+          title: "Three-Phase Power Measurement",
+          description:
+            "Compared single-wattmeter (balanced loads only), two-wattmeter (three-wire systems), and three-wattmeter (all load types, including unbalanced) methods for measuring three-phase power.",
+        },
+      ],
+      testing: [
+        "Verified DC resistance and no-load speed measurements against theoretical predictions",
+        "Derived induction motor equivalent circuit parameters and validated against load test results",
+        "Computed synchronous reactance and voltage regulation from open- and short-circuit test data",
+        "Compared wattmeter methods across balanced and unbalanced three-phase load configurations",
+      ],
+      discussion:
+        "This lab work builds practical intuition for how electric machine equivalent circuits are derived from a small set of standard tests, and how those models hold up against real load behavior. The three-phase power measurement comparisons highlight the tradeoffs between wiring complexity and per-phase visibility across the single-, two-, and three-wattmeter methods.",
+    },
+  },
+  {
+    title: "Transformer Characterization Lab",
+    description:
+      "Determined single-phase transformer equivalent circuit parameters through open-circuit and short-circuit testing, validated the model against load-test data, and tested a three-phase Delta-Wye transformer bank.",
+    tags: ["Transformers", "Three-Phase Power", "Power Measurement", "Lab-Volt EMS"],
+    category: "Power Engineering",
+    icon: Zap,
+    detail: {
+      overview:
+        "University laboratory coursework (ECE330) measuring the performance and operating characteristics of a single-phase transformer, comparing results against theoretical predictions from a measured equivalent circuit model, and extending the investigation to a three-phase Delta-Wye transformer bank.",
+      objectives: [
+        "Determine equivalent circuit parameters (Req, Xeq, Rc, Xm) via open-circuit and short-circuit tests",
+        "Validate the equivalent circuit model against measured load-test data",
+        "Calculate voltage regulation and efficiency across varying load levels",
+        "Investigate a three-phase transformer bank in a Delta-Wye configuration",
+      ],
+      architecture: [
+        {
+          title: "Short-Circuit Test",
+          description:
+            "Applied a reduced voltage to the primary with the secondary shorted to determine the equivalent series resistance and reactance of the transformer windings.",
+        },
+        {
+          title: "Open-Circuit Test",
+          description:
+            "Applied rated voltage to the primary with the secondary open to determine core-loss resistance and magnetizing reactance, and observed saturation behavior.",
+        },
+        {
+          title: "Load Test",
+          description:
+            "Loaded the secondary with resistive banks across a range of levels to measure voltage regulation and efficiency, and compared results to the equivalent circuit predictions.",
+        },
+        {
+          title: "Three-Phase Delta-Wye Bank",
+          description:
+            "Connected three single-phase transformers as a Delta-Wye bank and used a two-wattmeter method to measure line voltages, currents, and power delivered to a wye-connected resistive load.",
+        },
+      ],
+      testing: [
+        "Extracted Req, Xeq, Rc, and Xm from open- and short-circuit test data",
+        "Compared measured voltage regulation and efficiency against equivalent-circuit predictions across load levels",
+        "Verified turns-ratio behavior and observed core saturation effects at increasing primary voltage",
+        "Measured three-phase power delivery on the Delta-Wye bank using a two-wattmeter setup",
+      ],
+      discussion:
+        "This lab connects transformer theory directly to measurable behavior: the equivalent circuit derived from two simple tests predicted on-load voltage regulation and efficiency closely enough to see where the simplified model holds up and where core saturation and winding losses cause deviation. The Delta-Wye extension gave a concrete look at how three-phase transformer banks are wired and measured in practice.",
+    },
+  },
+  {
     title: "Joystick Interface with ADC & UART",
     description:
       "Implements a two-axis joystick interface using the ATmega328P microcontroller with ADC sampling, LCD display, and UART communication.",
@@ -765,7 +861,15 @@ const projects: Project[] = [
   },
 ]
 
-const categories = ["All", "Embedded Systems", "Microcontrollers", "ARM Assembly", "FPGA / VHDL"]
+const categories = [
+  "All",
+  "Embedded Systems",
+  "Microcontrollers",
+  "ARM Assembly",
+  "FPGA / VHDL",
+  "Power Engineering",
+  "Software / Computer Vision",
+]
 
 /* ------------------------------------------------------------------ */
 /*  Feature-icon mapper for the detail view                           */
@@ -1126,7 +1230,7 @@ export function ProjectsSection() {
           <SectionHeader
             label="// PROJECTS"
             title="Engineering Portfolio"
-            description="A selection of real-world projects spanning embedded systems, microcontroller programming, ARM assembly, and FPGA design."
+            description="A selection of real-world projects and lab work spanning embedded systems, microcontroller programming, ARM assembly, FPGA design, and power engineering."
           />
 
           {/* Filter bar */}
@@ -1151,14 +1255,14 @@ export function ProjectsSection() {
           </div>
 
           {/* Project grid */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-4">
             {filtered.map((project, index) => {
               const PIcon = project.icon
               return (
                 <button
                   key={project.title}
                   onClick={() => setSelected(project)}
-                  className={`group relative cursor-pointer rounded-xl border border-border/50 bg-card/30 p-6 text-left transition-all hover:border-primary/30 hover:bg-card/60 glow-border-hover ${
+                  className={`group relative w-full shrink-0 cursor-pointer rounded-xl border border-border/50 bg-card/30 p-6 text-left transition-all hover:border-primary/30 hover:bg-card/60 glow-border-hover sm:basis-[calc(50%-0.5rem)] lg:basis-[calc(33.333%-0.6667rem)] ${
                     isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                   }`}
                   style={{

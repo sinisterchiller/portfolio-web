@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Cpu, Cog, Zap, Target } from "lucide-react"
+import { Cpu, Cog, Zap, Target, Gauge } from "lucide-react"
 
 export function SectionHeader({
   label,
@@ -50,6 +50,11 @@ const strengths = [
     title: "System Design",
     desc: "Architecting clean, modular solutions from schematic to firmware to final deployment.",
   },
+  {
+    icon: Gauge,
+    title: "Power Engineering",
+    desc: "Lab experience characterizing motors, transformers, and synchronous machines, plus three-phase power measurement.",
+  },
 ]
 
 export function AboutSection() {
@@ -88,7 +93,8 @@ export function AboutSection() {
               Embedded C to build clean and reliable systems. From{" "}
               <span className="text-foreground font-medium">ATtiny2313A</span> and{" "}
               <span className="text-foreground font-medium">ATmega328P</span> to{" "}
-              <span className="text-foreground font-medium">STM32</span> and{" "}
+              <span className="text-foreground font-medium">STM32</span>,{" "}
+              <span className="text-foreground font-medium">ESP32</span>, and{" "}
               <span className="text-foreground font-medium">FPGA/VHDL</span> platforms, I enjoy
               working across the full spectrum of embedded development.
             </p>
@@ -96,6 +102,12 @@ export function AboutSection() {
               My hands-on experience spans RGB LEDs, buzzers, pushbuttons, touch sensors, ultrasonic
               sensors, LCDs, PWM, debouncing, UART, ADC, and digital logic. I am also comfortable
               with ARM assembly, though Embedded C and system design remain my strongest interests.
+            </p>
+            <p className="leading-relaxed text-muted-foreground">
+              Alongside embedded work, I have hands-on lab experience in power engineering,
+              including testing and characterizing DC motors, induction motors, synchronous
+              machines, and transformers, plus three-phase power measurement using Lab-Volt EMS
+              equipment.
             </p>
             <p className="leading-relaxed text-muted-foreground">
               Outside of engineering, I enjoy gaming, exploring new tech, and building side projects
@@ -108,14 +120,14 @@ export function AboutSection() {
 
           {/* Strength cards */}
           <div
-            className={`grid grid-cols-1 gap-4 sm:grid-cols-2 transition-all duration-700 delay-200 ${
+            className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-200 ${
               isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
             }`}
           >
             {strengths.map((item, index) => (
               <div
                 key={item.title}
-                className="group rounded-xl border border-border/50 bg-card/50 p-5 transition-all hover:border-primary/30 hover:bg-card/80 glow-border-hover"
+                className="group w-full shrink-0 rounded-xl border border-border/50 bg-card/50 p-5 transition-all hover:border-primary/30 hover:bg-card/80 glow-border-hover sm:basis-[calc(50%-0.5rem)]"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">

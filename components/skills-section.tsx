@@ -25,6 +25,7 @@ const skillCategories = [
     skills: [
       "ATtiny2313A",
       "ATmega328P",
+      "ESP32",
       "STM32",
       "UART",
       "ADC",
@@ -33,6 +34,18 @@ const skillCategories = [
       "Debouncing",
       "THUMB-2",
       "FPGA Design",
+      "ESP-IDF",
+    ],
+  },
+  {
+    title: "Power Engineering",
+    color: "glow-amber",
+    skills: [
+      "Three-Phase Power Systems",
+      "Electric Machines",
+      "Transformers",
+      "Power Measurement",
+      "Lab-Volt EMS",
     ],
   },
 ]
@@ -86,7 +99,7 @@ export function SkillsSection() {
         />
 
         <div
-          className={`grid gap-6 md:grid-cols-2 transition-all duration-700 ${
+          className={`flex flex-wrap justify-center gap-6 transition-all duration-700 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
@@ -95,7 +108,7 @@ export function SkillsSection() {
             return (
               <div
                 key={cat.title}
-                className={`group rounded-xl border ${colors.border} bg-card/30 p-6 transition-all hover:bg-card/60 hover:shadow-[0_0_20px_-5px] ${colors.glow}`}
+                className={`group w-full shrink-0 rounded-xl border ${colors.border} bg-card/30 p-6 transition-all hover:bg-card/60 hover:shadow-[0_0_20px_-5px] md:basis-[calc(50%-0.75rem)] ${colors.glow}`}
                 style={{ transitionDelay: `${catIdx * 100}ms` }}
               >
                 <div className="mb-4 flex items-center gap-3">
